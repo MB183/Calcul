@@ -47,9 +47,14 @@ function OnButtonClick(){
 	}
 }
 
+function clearNumber(){
+	let numberForm = document.getElementById("number_field");
+	numberForm.value = "";
+}
 function OnButtonNextClick(){
 	problemGenerator(0, 9, "+");
 	problemDisplay();
+	clearNumber();
 }
 
 document.getElementById("next_btn").style.display = "none";

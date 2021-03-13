@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title>Home</title>
+	<link rel="stylesheet" type="text/css" href="home.css">
+</head>
+<body>
+	<h1>Accueil</h1>
+	<h2>Problèmes de calcul</h2>
+
+	<label>Sélectionner l'une des quatre opérations.</label>
+	<label class="img_operator"><input type="radio" name="radio1"><img src="images/plus.png"></label>
+	<label class="img_operator"><input type="radio" name="radio1"><img src="images/moins.png"></label>
+	<label class="img_operator"><input type="radio" name="radio1"><img src="images/multi.png"></label>
+	<label class="img_operator"><input type="radio" name="radio1"><img src="images/diviser.png"></label><br><br>
+	
+	<label>Sélectionner la difficulté.</label>
+	<label><input type="radio" name="radio2">Facile</label>
+	<label><input type="radio" name="radio2">Moyen</label>
+	<label><input type="radio" name="radio2">Difficile</label><br><br>
+	
+	<label>Sélectionner le nombre de problèmes</label>
+	<label><input type="radio" name="radio3">10</label>
+	<label><input type="radio" name="radio3">20</label>
+	<label><input type="radio" name="radio3">30</label><br><br>
+	
+	<button type="button" id="start_btn" onclick="OnButtonStartClick();">Prêt</button>
+
+	<script type="text/javascript" src="home.js"></script>
+</body>
+</html
