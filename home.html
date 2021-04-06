@@ -1,32 +1,51 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+	
 	<meta charset="utf-8">
 	<title>Home</title>
 	<link rel="stylesheet" type="text/css" href="home.css">
 </head>
 <body>
-	<h1>Accueil</h1>
-	<h2>Problèmes de calcul</h2>
+	<div id="formula" name="questions">
+		<h1>Accueil</h1>
+		<h2>Problèmes de calcul</h2>
 
-	<label>Sélectionner l'une des quatre opérations.</label>
-	<label class="img_operator"><input type="radio" name="radio1"><img src="images/plus.png"></label>
-	<label class="img_operator"><input type="radio" name="radio1"><img src="images/moins.png"></label>
-	<label class="img_operator"><input type="radio" name="radio1"><img src="images/multi.png"></label>
-	<label class="img_operator"><input type="radio" name="radio1"><img src="images/diviser.png"></label><br><br>
-	
-	<label>Sélectionner la difficulté.</label>
-	<label><input type="radio" name="radio2">Facile</label>
-	<label><input type="radio" name="radio2">Moyen</label>
-	<label><input type="radio" name="radio2">Difficile</label><br><br>
-	
-	<label>Sélectionner le nombre de problèmes</label>
-	<label><input type="radio" name="radio3">10</label>
-	<label><input type="radio" name="radio3">20</label>
-	<label><input type="radio" name="radio3">30</label><br><br>
-	
-	<button type="button" id="start_btn" onclick="OnButtonStartClick();">Prêt</button>
+		<label>Sélectionner l'une des quatre opérations</label>
+		
+		<label class="img_operator"><input type="radio" name="radio1" value="+"><img src="images/plus.png"></label>
+		<label class="img_operator"><input type="radio" name="radio1" value="-"><img src="images/moins.png"></label>
+		<label class="img_operator"><input type="radio" name="radio1" value="*"><img src="images/multi.png"></label>
+		<label class="img_operator"><input type="radio" name="radio1" value="/"><img src="images/diviser.png"></label><br><br>
 
+		<label>Sélectionner la difficulté</label>
+		<label><input type="radio" name="radio2" value="1">Facile</label>
+		<label><input type="radio" name="radio2" value="2">Moyen</label>
+		<label><input type="radio" name="radio2" value="3">Difficile</label><br><br>
+		
+		<label>Sélectionner le nombre de problèmes</label>
+		<label><input type="radio" name="radio3" value="2">10</label>
+		<label><input type="radio" name="radio3" value="20">20</label>
+		<label><input type="radio" name="radio3" value="30">30</label><br><br>
+	
+		<button type="button" id="start_btn" onclick="OnButtonStartClick();">START</button>
+
+	</div><br><br>
+	<div id="calcul">
+		<div id="questions"></div>
+		<div id="probleme"></div>
+		<input type="number" id="number_field" name="rep_user">
+		<button type="button" id="submit_btn" onclick="OnButtonSubmitClick();">Submit</button>
+		<div id="result"></div><br><br>
+		<button type="button" id="next_btn" onclick="OnButtonNextClick();">Next</button>
+	</div>
+
+	<div>
+		<div id="resultat"></div>
+		<button type="button" id="new_btn" onclick="OnButtonNewClick();">New</button>
+		<button type="button" id="restart_btn" onclick="OnButtonRestartClick();">Restart</button>
+	</div>
+	
 	<script type="text/javascript" src="home.js"></script>
 </body>
 </html

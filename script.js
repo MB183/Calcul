@@ -7,6 +7,7 @@ var num2;
 var operator;
 var correct;
 
+
 function buttonDisable(){
 	button.disabled = true;
 	input.addEventListener("keyup", ()=> {
