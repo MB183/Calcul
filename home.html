@@ -24,7 +24,7 @@
 		<label><input type="radio" name="radio2" value="3">Difficile</label><br><br>
 		
 		<label>Sélectionner le nombre de problèmes</label>
-		<label><input type="radio" name="radio3" value="2">10</label>
+		<label><input type="radio" name="radio3" value="10">10</label>
 		<label><input type="radio" name="radio3" value="20">20</label>
 		<label><input type="radio" name="radio3" value="30">30</label><br><br>
 	
@@ -32,6 +32,12 @@
 
 	</div><br><br>
 	<div id="calcul">
+		<div class="stopwatch_wrapper">
+			<div class="stopwatch_display">
+			    <span id="minutes" class="time">00</span>
+			    <span id="seconds" class="time">00</span>				
+			</div>			
+		</div>
 		<div id="questions"></div>
 		<div id="probleme"></div>
 		<input type="number" id="number_field" name="rep_user">
