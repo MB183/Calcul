@@ -18,6 +18,10 @@ var num2;
 var correct;
 var symbol;
 
+var good_answer_cookie;
+var number_questions_cookie;
+var rate_cookie;
+
 //timer ////////////////////////////////////////////////////////////////////////////////////
 const minutes = document.getElementById('minutes');
 const seconds = document.getElementById('seconds');
@@ -79,14 +83,27 @@ function buttonDisable(){
 });
 }
 
+function existeCookie(){
+	good_answer_cookie = document.cookie.indexOf("score");
+	number_questions_cookie = document.cookie.indexOf("total_questions");
+	rate_cookie = document.cookie.indexOf("rate");
+
+	if (good_answer_cookie !== -1) {
+		console.log('existe');
+	} else {
+		console.log("ça n'existe pas");
+	}
+}
 
 window.onload = function(){
 	//document.getElementById("next_button").style.display = "none";
+	existeCookie();
 	next_button.style.display = "none";
 	//document.getElementById("calcul").style.display = "none";
 	new_button.style.display = "none";
 	restart_button.style.display = "none";
 	document.getElementById("calcul").style.display = "none";
+
 	};
 
 //timer ///////////////////////////////////////////
@@ -196,24 +213,25 @@ function OnButtonSubmitClick(){
 		document.getElementById('result').innerHTML = answer;
 		next_button.style.display = "block";
 		good_answer++;
+		buttonDisable();
 		
 	} else {
 		answer = "Pas correct. La réponse est " + correct;
 		document.getElementById('result').innerHTML = answer;
 		next_button.style.display = "block";
+		buttonDisable();
 	}
 	if (done_questions == number_questions) {
 		document.getElementById("calcul").style.display = "none";
 		document.getElementById("resultat").style.display = "block";
 		stopStopwatch();
-		console.log(minutes);
 
 		//cookie /////////////////////////////////////////////////
 		var rate = good_answer / number_questions * 100;
 
-		document.cookie = 'Le nombre de bonne réponse =' + good_answer;
-		document.cookie = 'Le nombre de questions =' + number_questions;
-		document.cookie = 'Le taux de réussite =' + rate + '%';
+		document.cookie = 'score =' + good_answer;
+		document.cookie = 'total_questions =' + number_questions;
+		document.cookie = 'rate =' + rate + '%';
 		//cookie /////////////////////////////////////////////////
 		document.getElementById('resultat').innerHTML = "Résultat <br>" + time_minutes + "min" + time_seconds + "sec <br>" + good_answer +" Bonnes réponses !<br>";
 		new_button.style.display = "block";
@@ -243,6 +261,7 @@ function OnButtonNewClick(){
 		restart_button.style.display = "none";
 		clearNumber();
 		done_questions = 0;	
+		good_answer = 0;
 		resetStopwatch();
 }
 
@@ -252,6 +271,7 @@ function OnButtonRestartClick(){
 	restart_button.style.display = "none";
 	clearNumber();
 	done_questions = 0;	
+	good_answer = 0;
 	resetStopwatch();
 	startStopwatch();
 	document.getElementById('questions').innerHTML = (done_questions + 1)  + "/" + number_questions;
