@@ -6,7 +6,7 @@ const next_button = document.getElementById("next_btn");
 const new_button = document.getElementById("new_btn");
 const restart_button = document.getElementById("restart_btn");
 
-var done_questions = 0;
+var done_questions = 9;
 var good_answer = 0;
 
 var type_calc;
@@ -18,10 +18,6 @@ var num2;
 var correct;
 var symbol;
 
-var cookies;
-var cookiesArray;
-var good_answer_cookie;
-var number_questions_cookie;
 var rate_cookie;
 var cArray;
 
@@ -30,6 +26,12 @@ var dadte2;
 var dateLimete = 30;
 
 var test;
+
+var streak = 0;
+var tmp_streak = 0;
+
+var allQuestions = 0;
+var allGoodAnswers = 0;
 //timer ////////////////////////////////////////////////////////////////////////////////////
 const minutes = document.getElementById('minutes');
 const seconds = document.getElementById('seconds');
@@ -98,39 +100,46 @@ date2 = date1.toGMTString();
 /////////////////////////////////////concernant expire de cookie /////////////////////////////
 
 
-function getCookieArray(){
-	cookies = document.cookie;
-	cookiesArray = cookies.split(";");
-	console.log(cookiesArray);
-
-	for(var c of cookiesArray){
-		cArray = c.split("=");
-		//console.log(cArray);
-		if(cArray[1] == 'score'){
-			console.log(cArray[0][1]);
-			return cArray;
+function getRate(){
+	let cookies = document.cookie;
+	let cookiesArray = cookies.split(";");
+	let value_ga = 0;
+	let value_aq = 0;
+	for (let c of cookiesArray) {
+		if (c.split('=')[0].includes('allGoodAnswers')) {
+			value_ga = parseInt(c.split('=')[1]);
+		}
+		if (c.split('=')[0].includes('allQuestions')) {
+			value_aq = parseInt(c.split('=')[1]);
 		}
 	}
-	test = cookiesArray[1];
-	console.log(test);
-	test2 = cookies.replace(/[^0-9]/g, '');
-	return test2;
+	return value_ga / value_aq * 100;
+}
 
-	
+function getStreak(){
+	let cookies = document.cookie;
+	let cookiesArray = cookies.split(";");
+	let value_streak = 0;
+	for (let c of cookiesArray) {
+		if (c.split('=')[0].includes('streak')) {
+			value_streak = parseInt(c.split('=')[1]);
+		}
+	}
+	return value_streak;
 }
 
 function existeCookie(){
-	good_answer_cookie = document.cookie.indexOf("score");
-	number_questions_cookie = document.cookie.indexOf("total_questions");
-	rate_cookie = document.cookie.indexOf("rate");
-	
-	if (good_answer_cookie == -1) {
-		document.getElementById("high_score").innerHTML = "C'est votre première visite";
-		console.log(good_answer_cookie);
+	let good_answer_cookie = document.cookie.indexOf("allGoodAnswers");
+	let all_question_cookie = document.cookie.indexOf("allQuestions");
+	let streak_cookie = document.cookie.indexOf("streak");
+	if (good_answer_cookie == -1 && all_question_cookie == -1 && streak_cookie == -1) {
+		document.getElementById("rate").innerHTML = "C'est votre première visite";
 	} else {
-		getCookieArray();
+		let rate = getRate();
+		let streak = getStreak();
 
-		document.getElementById("high_score").innerHTML = "Votre meilleur score est " + test2 + " points";
+		document.getElementById("streak").innerHTML = "Votre record de bonnes répones à la suite est " + streak;
+		document.getElementById("rate").innerHTML = "Votre taux de réussite est de " + rate + " %";
 	}
 }
 
@@ -242,6 +251,14 @@ function problemGenerator(){
 	}
 }
 
+function updateStreak(){
+	debugger;
+	if(tmp_streak > streak){
+		streak = tmp_streak;
+		document.cookie = 'streak=' + streak + ';expires=' + date2;
+	}
+}
+
 function OnButtonSubmitClick(){
 	let answer = "";
 	let content = input.value;
@@ -253,13 +270,18 @@ function OnButtonSubmitClick(){
 		document.getElementById('result').innerHTML = answer;
 		next_button.style.display = "block";
 		good_answer++;
+		tmp_streak++;
+		debugger;
+		updateStreak();
 		buttonDisable();
 		
 	} else {
 		answer = "Pas correct. La réponse est " + correct;
 		document.getElementById('result').innerHTML = answer;
 		next_button.style.display = "block";
+		tmp_streak = 0;
 		buttonDisable();
+
 	}
 	if (done_questions == number_questions) {
 		document.getElementById("calcul").style.display = "none";
@@ -267,12 +289,15 @@ function OnButtonSubmitClick(){
 		stopStopwatch();
 
 ////////////cookie /////////////////////////////////////////////////
-		var rate = good_answer / number_questions * 100;
-
-		document.cookie = 'score =' + good_answer + ';expires='+ date2;
-		document.cookie = 'total_questions =' + number_questions + ';expires='+ date2;
-		document.cookie = 'rate =' + rate + '%' + ';expires='+ date2;
+		allQuestions = allQuestions + parseInt(number_questions, 10);
+		allGoodAnswers = allGoodAnswers + good_answer;
+		// document.cookie = 'allGoodAnswers='+ allGoodAnswers + ';'
+		// 				+ 'allQuestions=' + allQuestions + ';'
+		// 				+ 'expires='+ date2;
+		document.cookie = 'allGoodAnswers=' + allGoodAnswers + ';expires='+ date2;
+		document.cookie = 'allQuestions=' + allQuestions + ';expires=' + date2;
 ////////////cookie /////////////////////////////////////////////////
+
 		document.getElementById('resultat').innerHTML = "Résultat <br>" + time_minutes + "min" + time_seconds + "sec <br>" + good_answer +" Bonnes réponses !<br>";
 		new_button.style.display = "block";
 		restart_button.style.display = "block";
