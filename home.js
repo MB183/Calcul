@@ -18,10 +18,18 @@ var num2;
 var correct;
 var symbol;
 
+var cookies;
+var cookiesArray;
 var good_answer_cookie;
 var number_questions_cookie;
 var rate_cookie;
+var cArray;
 
+var date1;
+var dadte2;
+var dateLimete = 30;
+
+var test;
 //timer ////////////////////////////////////////////////////////////////////////////////////
 const minutes = document.getElementById('minutes');
 const seconds = document.getElementById('seconds');
@@ -83,26 +91,58 @@ function buttonDisable(){
 });
 }
 
+/////////////////////////////////////concernant expire de cookie /////////////////////////////
+date1 = new Date();
+date1.setTime(date1.getTime() + dateLimete*24*60*60*1000);
+date2 = date1.toGMTString();
+/////////////////////////////////////concernant expire de cookie /////////////////////////////
+
+
+function getCookieArray(){
+	cookies = document.cookie;
+	cookiesArray = cookies.split(";");
+	console.log(cookiesArray);
+
+	for(var c of cookiesArray){
+		cArray = c.split("=");
+		//console.log(cArray);
+		if(cArray[1] == 'score'){
+			console.log(cArray[0][1]);
+			return cArray;
+		}
+	}
+	test = cookiesArray[1];
+	console.log(test);
+	test2 = cookies.replace(/[^0-9]/g, '');
+	return test2;
+
+	
+}
+
 function existeCookie(){
 	good_answer_cookie = document.cookie.indexOf("score");
 	number_questions_cookie = document.cookie.indexOf("total_questions");
 	rate_cookie = document.cookie.indexOf("rate");
-
-	if (good_answer_cookie !== -1) {
-		console.log('existe');
+	
+	if (good_answer_cookie == -1) {
+		document.getElementById("high_score").innerHTML = "C'est votre première visite";
+		console.log(good_answer_cookie);
 	} else {
-		console.log("ça n'existe pas");
+		getCookieArray();
+
+		document.getElementById("high_score").innerHTML = "Votre meilleur score est " + test2 + " points";
 	}
 }
 
 window.onload = function(){
 	//document.getElementById("next_button").style.display = "none";
-	existeCookie();
+
 	next_button.style.display = "none";
 	//document.getElementById("calcul").style.display = "none";
 	new_button.style.display = "none";
 	restart_button.style.display = "none";
 	document.getElementById("calcul").style.display = "none";
+	existeCookie();
 
 	};
 
@@ -226,13 +266,13 @@ function OnButtonSubmitClick(){
 		document.getElementById("resultat").style.display = "block";
 		stopStopwatch();
 
-		//cookie /////////////////////////////////////////////////
+////////////cookie /////////////////////////////////////////////////
 		var rate = good_answer / number_questions * 100;
 
-		document.cookie = 'score =' + good_answer;
-		document.cookie = 'total_questions =' + number_questions;
-		document.cookie = 'rate =' + rate + '%';
-		//cookie /////////////////////////////////////////////////
+		document.cookie = 'score =' + good_answer + ';expires='+ date2;
+		document.cookie = 'total_questions =' + number_questions + ';expires='+ date2;
+		document.cookie = 'rate =' + rate + '%' + ';expires='+ date2;
+////////////cookie /////////////////////////////////////////////////
 		document.getElementById('resultat').innerHTML = "Résultat <br>" + time_minutes + "min" + time_seconds + "sec <br>" + good_answer +" Bonnes réponses !<br>";
 		new_button.style.display = "block";
 		restart_button.style.display = "block";
@@ -254,15 +294,16 @@ function OnButtonNextClick(){
 }
 
 function OnButtonNewClick(){
-		document.getElementById("formula").style.display = "block";
-		document.getElementById("resultat").style.display = "none";
-		document.getElementById('questions').innerHTML = "";
-		new_button.style.display = "none";
-		restart_button.style.display = "none";
-		clearNumber();
-		done_questions = 0;	
-		good_answer = 0;
-		resetStopwatch();
+    existeCookie();
+	document.getElementById("formula").style.display = "block";
+	document.getElementById("resultat").style.display = "none";
+	document.getElementById('questions').innerHTML = "";
+	new_button.style.display = "none";
+	restart_button.style.display = "none";
+	clearNumber();
+	done_questions = 0;	
+	good_answer = 0;
+	resetStopwatch();
 }
 
 function OnButtonRestartClick(){
