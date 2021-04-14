@@ -7,53 +7,54 @@
 	<link rel="stylesheet" type="text/css" href="home.css">
 </head>
 <body>
-	<div id="formula" name="questions">
-		<div id="streak"></div>
-		<div id="rate"></div>
-		<h1>Accueil</h1>
-		<h2>Problèmes de calcul</h2>
+	<div id="content">
+		<div id="formula" name="questions">
+			<div id="streak"></div>
+			<div id="rate"></div>
+			<h1>Accueil</h1>
+			<h2>Problèmes de calcul</h2>
 
-		<label>Sélectionner l'une des quatre opérations</label>
+			<label>Sélectionner l'une des quatre opérations</label>
+			
+			<label class="img_operator"><input type="radio" name="radio1" value="+"><img src="images/plus.png"></label>
+			<label class="img_operator"><input type="radio" name="radio1" value="-"><img src="images/moins.png"></label>
+			<label class="img_operator"><input type="radio" name="radio1" value="*"><img src="images/multi.png"></label>
+			<label class="img_operator"><input type="radio" name="radio1" value="/"><img src="images/diviser.png"></label><br><br>
+
+			<label>Sélectionner la difficulté</label>
+			<label><input type="radio" name="radio2" value="1">Facile</label>
+			<label><input type="radio" name="radio2" value="2">Moyen</label>
+			<label><input type="radio" name="radio2" value="3">Difficile</label><br><br>
+			
+			<label>Sélectionner le nombre de problèmes</label>
+			<label><input type="radio" name="radio3" value="10">10</label>
+			<label><input type="radio" name="radio3" value="20">20</label>
+			<label><input type="radio" name="radio3" value="30">30</label><br><br>
 		
-		<label class="img_operator"><input type="radio" name="radio1" value="+"><img src="images/plus.png"></label>
-		<label class="img_operator"><input type="radio" name="radio1" value="-"><img src="images/moins.png"></label>
-		<label class="img_operator"><input type="radio" name="radio1" value="*"><img src="images/multi.png"></label>
-		<label class="img_operator"><input type="radio" name="radio1" value="/"><img src="images/diviser.png"></label><br><br>
+			<button type="button" id="start_btn" onclick="OnButtonStartClick();">START</button>
 
-		<label>Sélectionner la difficulté</label>
-		<label><input type="radio" name="radio2" value="1">Facile</label>
-		<label><input type="radio" name="radio2" value="2">Moyen</label>
-		<label><input type="radio" name="radio2" value="3">Difficile</label><br><br>
-		
-		<label>Sélectionner le nombre de problèmes</label>
-		<label><input type="radio" name="radio3" value="10">10</label>
-		<label><input type="radio" name="radio3" value="20">20</label>
-		<label><input type="radio" name="radio3" value="30">30</label><br><br>
-	
-		<button type="button" id="start_btn" onclick="OnButtonStartClick();">START</button>
-
-	</div><br><br>
-	<div id="calcul">
-		<div class="stopwatch_wrapper">
-			<div class="stopwatch_display">
-			    <span id="minutes" class="time">00</span>
-			    <span id="seconds" class="time">00</span>				
-			</div>			
+		</div><br><br>
+		<div id="calcul">
+			<div class="stopwatch_wrapper">
+				<div class="stopwatch_display">
+				    <span id="minutes" class="time">00</span>
+				    <span id="seconds" class="time">00</span>				
+				</div>			
+			</div>
+			<div id="questions"></div>
+			<div id="probleme"></div>
+			<input type="number" id="number_field" name="rep_user">
+			<button type="button" id="submit_btn" onclick="OnButtonSubmitClick();">Submit</button>
+			<div id="result"></div><br><br>
+			<button type="button" id="next_btn" onclick="OnButtonNextClick();">Next</button>
 		</div>
-		<div id="questions"></div>
-		<div id="probleme"></div>
-		<input type="number" id="number_field" name="rep_user">
-		<button type="button" id="submit_btn" onclick="OnButtonSubmitClick();">Submit</button>
-		<div id="result"></div><br><br>
-		<button type="button" id="next_btn" onclick="OnButtonNextClick();">Next</button>
-	</div>
 
-	<div>
-		<div id="resultat"></div>
-		<button type="button" id="new_btn" onclick="OnButtonNewClick();">New</button>
-		<button type="button" id="restart_btn" onclick="OnButtonRestartClick();">Restart</button>
+		<div>
+			<div id="resultat"></div>
+			<button type="button" id="new_btn" onclick="OnButtonNewClick();">New</button>
+			<button type="button" id="restart_btn" onclick="OnButtonRestartClick();">Restart</button>
+		</div>
 	</div>
-	
 	<script type="text/javascript" src="home.js"></script>
 </body>
 </html

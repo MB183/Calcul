@@ -6,3 +6,19 @@
 li{
 	list-style: none;
 }
+
+body{
+	text-align: center;	
+	background-color: white;
+}
+
+#content{
+	padding: 0.5em 1em;
+    margin: 2em 0;
+    border: double 5px #4ec4d3;
+}
+
+#content div{
+	margin: 0;
+    padding: 0;
+}

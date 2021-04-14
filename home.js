@@ -6,7 +6,7 @@ const next_button = document.getElementById("next_btn");
 const new_button = document.getElementById("new_btn");
 const restart_button = document.getElementById("restart_btn");
 
-var done_questions = 9;
+var done_questions = 8;
 var good_answer = 0;
 
 var type_calc;
